@@ -19,8 +19,5 @@ def main():
 
       st.write(f"Frame rate: {audio.frame_rate}, Frame width: {audio.frame_width}, Duration: {audio.duration_seconds} seconds")
 
-def test_main():
-  pass
-
 if __name__ == "__main__":
   main()

@@ -14,7 +14,10 @@ def main():
 
     if len(audio) > 0:
         model = whisper.load_model("base")
-        result = model.transcribe(np.frombuffer(audio.raw_data, np.int16).flatten().astype(np.float32) / 32768.0)
+        language = 'Indonesian'
+        options = dict(language=language, beam_size=5, best_of=5)
+        transcribe_options = dict(task="transcribe", **options)
+        result = model.transcribe(np.frombuffer(audio.raw_data, np.int16).flatten().astype(np.float32) / 32768.0, **transcribe_options)
         st.write(result['text'])
 
 if __name__ == "__main__":

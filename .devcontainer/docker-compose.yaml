@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - 8501:8501
+    links:
+      - ollama
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    volumes:
+      - ..:/workspace:cached
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    volumes:
+      - ..:/code
+      - ../ollama/ollama:/root/.ollama
+    container_name: ollama
+    restart: unless-stopped
+    pull_policy: always
+    tty: true
+  
+  ollama-setup:
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    volumes:
+      - ..:/code
+      - ../ollama/ollama:/root/.ollama
+    restart: never
+    tty: true
+    entrypoint: ollama pull llama3

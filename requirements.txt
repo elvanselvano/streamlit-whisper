@@ -2,3 +2,6 @@ streamlit
 streamlit-audiorecorder
 openai-whisper
 numpy
+haystack-ai
+ollama-haystack
+python-dotenv

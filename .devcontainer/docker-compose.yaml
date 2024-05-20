@@ -23,11 +23,9 @@ services:
   
   ollama-setup:
     image: ollama/ollama:latest
-    ports:
-      - 11434:11434
     volumes:
       - ..:/code
       - ../ollama/ollama:/root/.ollama
-    restart: never
+    restart: no
     tty: true
-    entrypoint: ollama pull llama3
+    entrypoint: ollama pull wizardlm2

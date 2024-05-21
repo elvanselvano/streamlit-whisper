@@ -16,9 +16,9 @@ def profile_extractor(pipeline_kwargs={}):
     extractor.add_component(
         "generator",
         OllamaGenerator(
-            model=os.getenv("LLM_MODEL"),
-            url=str(os.getenv("LLM_URL")),
-            timeout=int(os.getenv("TIMEOUT", 10 * 60)),
+            model=os.environ["LLM_MODEL"],
+            url=str(os.environ["LLM_URL"]),
+            timeout=int(os.getenv("LLM_TIMEOUT_SECONDS", 10 * 60)),
         ),
     )
     extractor.connect("prompt.value", "builder.story")

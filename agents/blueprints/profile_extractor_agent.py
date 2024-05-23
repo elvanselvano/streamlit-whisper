@@ -16,7 +16,7 @@ def profile_extractor(pipeline_kwargs={}):
     extractor.add_component(
         "generator",
         OllamaGenerator(
-            model=os.environ["LLM_MODEL"],
+            model=os.getenv("LLM_MODEL", "gemma"),
             url=str(os.environ["LLM_URL"]),
             timeout=int(os.getenv("LLM_TIMEOUT_SECONDS", 10 * 60)),
         ),

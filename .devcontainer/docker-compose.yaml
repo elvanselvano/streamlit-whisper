@@ -28,4 +28,6 @@ services:
       - ../ollama/ollama:/root/.ollama
     restart: no
     tty: true
-    entrypoint: ollama pull wizardlm2
+    env_file:
+      - ../.env
+    entrypoint: ollama pull ${LLM_MODEL}

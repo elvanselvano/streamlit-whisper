@@ -3,7 +3,36 @@
 {
 	"name": "Python 3",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"build": { "dockerfile": "Dockerfile" },
+	"dockerComposeFile": "./docker-compose.yaml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"shutdownAction": "stopCompose",
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/ruff:1": {}
+	},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"editor.formatOnSave": true,
+    			"editor.defaultFormatter": "charliermarsh.ruff",
+				"editor.codeActionsOnSave": {
+					"source.fixAll": true,
+					"source.organizeImports": true
+				}
+			},
+			"extensions": [
+				"charliermarsh.ruff",
+				"ms-python.python",
+				"KevinRose.vsc-python-indent",
+				"tamasfe.even-better-toml",
+				"njpwerner.autodocstring",
+				"ecmel.vscode-html-css",
+				"koppt.vscode-view-in-browser"
+			]
+		}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

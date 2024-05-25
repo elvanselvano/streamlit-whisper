@@ -34,7 +34,7 @@ def main():
         audio_array = audio_array.astype(np.float32) / normalization_factor
         st.success("Transcribing audio...")
 
-        options = dict(language=os.environ["LANGUAGE"], beam_size=5, best_of=5)
+        options = dict(language=os.environ["WHISPER_MODEL_LANGUAGE"], beam_size=5, best_of=5)
         transcribe_options = dict(task="transcribe", **options)
         result = model.transcribe(audio_array, **transcribe_options)
 

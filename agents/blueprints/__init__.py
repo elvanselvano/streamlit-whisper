@@ -1,1 +1,2 @@
 from .profile_extractor_agent import profile_extractor
+from .financial_planner_agent import financial_planner

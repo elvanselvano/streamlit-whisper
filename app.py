@@ -1,7 +1,6 @@
 import streamlit as st
 from dotenv import load_dotenv
 from agents.blueprints import profile_extractor
-from audiorecorder import audiorecorder
 
 st.set_page_config(
     page_title="Starting App",

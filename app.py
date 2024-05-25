@@ -1,5 +1,6 @@
 import numpy as np
 import whisper
+import os
 import streamlit as st
 from dotenv import load_dotenv
 from audiorecorder import audiorecorder
@@ -14,7 +15,6 @@ def load_whisper_model():
     model = whisper.load_model("medium")
     return model
 
-LANGUAGE = "Indonesian"
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("Starting app")
@@ -34,7 +34,7 @@ def main():
         audio_array = audio_array.astype(np.float32) / normalization_factor
         st.success("Transcribing audio...")
 
-        options = dict(language=LANGUAGE, beam_size=5, best_of=5)
+        options = dict(language=os.environ["LANGUAGE"], beam_size=5, best_of=5)
         transcribe_options = dict(task="transcribe", **options)
         result = model.transcribe(audio_array, **transcribe_options)
 

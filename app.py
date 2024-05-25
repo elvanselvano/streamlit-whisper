@@ -9,20 +9,17 @@ st.set_page_config(
     page_title="Starting App",
 )
 
-
 @st.cache_resource
 def load_whisper_model():
     model = whisper.load_model("medium")
     return model
 
-
+LANGUAGE = "Indonesian"
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("Starting app")
 
     model = load_whisper_model()
-    st.success("Whisper model loaded.")
-
     audio = audiorecorder("Click to record", "Click to stop recording")
     if len(audio) > 0:
         if audio.frame_rate != 16000:
@@ -32,11 +29,12 @@ def main():
         if audio.channels != 1:
             audio = audio.set_channels(1)
         audio_array = np.array(audio.get_array_of_samples())
-        audio_array = audio_array.astype(np.float32) / 32768.0
-        st.success("Recording saved. Now transcribing audio...")
 
-        language = "Indonesian"
-        options = dict(language=language, beam_size=5, best_of=5)
+        normalization_factor = 32768.0
+        audio_array = audio_array.astype(np.float32) / normalization_factor
+        st.success("Transcribing audio...")
+
+        options = dict(language=LANGUAGE, beam_size=5, best_of=5)
         transcribe_options = dict(task="transcribe", **options)
         result = model.transcribe(audio_array, **transcribe_options)
 

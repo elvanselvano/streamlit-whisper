@@ -22,4 +22,8 @@ Berikut adalah opini pakar investasi.
 {% endfor %}
 ---
 Berdasarkan profil dan percakapan tersebut buatlah Opini anda. Opini anda harus profesional dan objektif. Anda harus selalu mendahulukan kepentingan nasabah. Jawaban dibuat seakan semua adalah opini dan masukan anda tanpa opini pihak ketiga. 
-Jawaban anda harus dalam bentuk paragraf tanpa kalimat yang di bold. Jawablah seperti anda langsung menjawab kepada nasabah.
+Jawaban anda harus dalam bentuk paragraf tanpa bold.
+Jawablah dengan sudut pandang orang kedua. Contoh:
+---
+Kamu memiliki hutang yang sedikit sehingga kamu bisa membeli rumah dan reksadana.
+---

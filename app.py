@@ -107,7 +107,7 @@ def main():
                 )
                 response = res["financial_planner"]["replies"][0]
             speak(response)
-            st.session_state["chat"].append({"role": "Assistant", "message": response})
+            st.session_state["chat"].append({"role": "Anda", "message": response})
 
 
 if __name__ == "__main__":

@@ -60,6 +60,11 @@ def transcribe_audio(model, audio):
 
 
 def speak(text: str):
+    """
+    Convert text into audio and play it.
+    Args:
+        text: str = the text to be converted into speech
+    """
     tts = gTTS(text=text, lang=os.environ["GTTS_MODEL_LANGUAGE"])
     audio_bytes = BytesIO()
 

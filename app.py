@@ -62,7 +62,7 @@ def main():
         st.write(reply)
 
         lang = os.environ["GTTS_MODEL_LANGUAGE"]
-        tts = gTTS(text=transcribed_audio_text, lang=lang)
+        tts = gTTS(text=reply, lang=lang)
         audio_bytes = BytesIO()
 
         tts.write_to_fp(audio_bytes)

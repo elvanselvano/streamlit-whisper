@@ -1,49 +1,108 @@
+import os
+from io import BytesIO
+
+import numpy as np
+import whisper
 import streamlit as st
+from gtts import gTTS
 from dotenv import load_dotenv
+from audiorecorder import audiorecorder
 from agents.blueprints import financial_planner, profile_extractor
 
 st.set_page_config(
-    page_title="Starting App",
+    page_title="FinNetra",
 )
+
+
+@st.cache_resource
+def load_whisper_model():
+    """
+    Load and cache the medium size OpenAI Whisper model.
+    Returns:
+        object: The loaded Whisper model.
+    """
+    model = whisper.load_model("medium")
+    return model
+
+
+def transcribe_audio(model, audio):
+    """
+    Transcribe audio using the OpenAI Whisper model.
+    This function takes an audio object, ensures that the audio parameters
+    (frame rate, sample width, and channels) meet OpenAI Whisper specifications,
+    converts the audio data into a normalized numpy array, and then transcribes
+    it using the Whisper model.
+    Args:
+        model: The Whisper model used for audio transcription.
+        audio: The audio object to be transcribed.
+    Returns:
+        str: The transcribed audio result in text format.
+    """
+    if audio.frame_rate != 16000:
+        audio = audio.set_frame_rate(16000)
+    if audio.sample_width != 2:
+        audio = audio.set_sample_width(2)
+    if audio.channels != 1:
+        audio = audio.set_channels(1)
+
+    audio_array = np.array(audio.get_array_of_samples())
+    normalization_factor = 32768.0
+    audio_array = audio_array.astype(np.float32) / normalization_factor
+
+    options = dict(
+        language=os.environ["WHISPER_MODEL_LANGUAGE"], beam_size=5, best_of=5
+    )
+
+    transcribe_options = dict(task="transcribe", **options)
+    with st.spinner("Transcribing Audio"):
+        result = model.transcribe(audio_array, **transcribe_options)
+    return result["text"]
+
+
+def speak(text: str):
+    tts = gTTS(text=text, lang=os.environ["GTTS_MODEL_LANGUAGE"])
+    audio_bytes = BytesIO()
+
+    tts.write_to_fp(audio_bytes)
+    st.audio(audio_bytes, format="audio/mp3", autoplay=True)
 
 
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
-    st.title("Starting app")
-    # audio = audiorecorder("Click to record", "Click to stop recording")
-    placeholder_story = """
-    Nama saya Budi Santoso, seorang pria berusia 35 tahun yang bekerja sebagai Manajer Pemasaran. Saya menikah dan memiliki seorang anak berusia 4 tahun. Setiap bulan, saya menerima gaji sebesar Rp 15.000.000 dan mendapatkan tambahan pendapatan Rp 2.000.000 dari bisnis sampingan. Saat ini, saya memiliki tabungan sebesar Rp 50.000.000 dan telah berinvestasi Rp 20.000.000 di reksa dana.
+    st.title("FinNetra")
 
-Namun, saya juga memiliki kewajiban finansial yang harus dipenuhi. Saya sedang mencicil Kredit Pemilikan Rumah (KPR) dengan sisa hutang sebesar Rp 500.000.000, di mana saya harus membayar cicilan bulanan Rp 5.000.000 selama 20 tahun ke depan. Selain itu, saya memiliki hutang kartu kredit sebesar Rp 10.000.000 dengan bunga 2% per bulan.
-
-Pengeluaran bulanan saya terdiri dari cicilan KPR Rp 5.000.000, cicilan kartu kredit Rp 500.000, biaya hidup sehari-hari seperti kebutuhan rumah tangga, sekolah anak, dan transportasi sebesar Rp 8.000.000, serta pengeluaran lain-lain sebesar Rp 2.000.000. Saya juga menyisihkan Rp 1.000.000 setiap bulan untuk tabungan dan investasi. Total pengeluaran bulanan saya mencapai Rp 16.500.000, sehingga saya memiliki sisa pendapatan bulanan Rp 500.000
-    """
-
-    # if len(audio) > 0:
-    # model = whisper.load_model("base")
-    # language = 'Indonesian'
-    # options = dict(language=language, beam_size=5, best_of=5)
-    # transcribe_options = dict(task="transcribe", **options)
-    # result = model.transcribe(np.frombuffer(audio.raw_data, np.int16).flatten().astype(np.float32) / 32768.0, **transcribe_options)
-    profile_extractor_pipe = profile_extractor()
     if "profile" not in st.session_state:
-        with st.spinner("Wait for it..."):
-            res = profile_extractor_pipe.run({"prompt": {"value": placeholder_story}})
-            st.session_state["profile"] = res["generator"]["replies"][0]
-    st.write(st.session_state["profile"])
-    chat = [
-        {"role": "Nasabah", "message": "Saya mau ambil KPR. Sebaiknya bagaimana ya?"}
-    ]
-    with st.spinner("Planning"):
-        planner = financial_planner()
-        res = planner.run(
-            {
-                "chat": {"value": chat},
-                "profile": {"value": st.session_state["profile"]},
-            },
-        )
-        response = res["financial_planner"]["replies"][0]
-        st.write(response)
+        speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
+    audio = audiorecorder("Click to record", "Click to stop recording")
+
+    if len(audio) > 0:
+        model = load_whisper_model()
+        transcribed_audio_text = transcribe_audio(model, audio)
+        if "profile" not in st.session_state:
+            profile_extractor_pipe = profile_extractor()
+
+            with st.spinner("Extracting Profile"):
+                res = profile_extractor_pipe.run(
+                    {"prompt": {"value": transcribed_audio_text}}
+                )
+                st.session_state["profile"] = res["generator"]["replies"][0]
+                st.session_state["chat"] = []
+                speak("Apa yang bisa saya bantu?")
+        else:
+            st.session_state["chat"].append(
+                {"role": "Nasabah", "message": transcribed_audio_text}
+            )
+            with st.spinner("Planning"):
+                planner = financial_planner()
+                res = planner.run(
+                    {
+                        "chat": {"value": st.session_state["chat"]},
+                        "profile": {"value": st.session_state["profile"]},
+                    },
+                )
+                response = res["financial_planner"]["replies"][0]
+            speak(response)
+            st.session_state["chat"].append({"role": "Assistant", "message": response})
 
 
 if __name__ == "__main__":

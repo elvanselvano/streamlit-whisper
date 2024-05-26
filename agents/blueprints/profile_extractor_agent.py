@@ -6,7 +6,7 @@ from haystack.components.builders import PromptBuilder
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 
 
-def profile_extractor(pipeline_kwargs={}):
+def profile_extractor(pipeline_kwargs: dict = {}):
     template = ""
     with open("agents/templates/profile_extractor_template.txt") as f:
         template = f.read()

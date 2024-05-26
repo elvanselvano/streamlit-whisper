@@ -1,6 +1,6 @@
 import streamlit as st
 from dotenv import load_dotenv
-from agents.blueprints import profile_extractor
+from agents.blueprints import financial_planner, profile_extractor
 
 st.set_page_config(
     page_title="Starting App",
@@ -26,11 +26,24 @@ Pengeluaran bulanan saya terdiri dari cicilan KPR Rp 5.000.000, cicilan kartu kr
     # transcribe_options = dict(task="transcribe", **options)
     # result = model.transcribe(np.frombuffer(audio.raw_data, np.int16).flatten().astype(np.float32) / 32768.0, **transcribe_options)
     profile_extractor_pipe = profile_extractor()
-    with st.spinner("Wait for it..."):
-        res = profile_extractor_pipe.run({"prompt": {"value": placeholder_story}})
-        reply = res["generator"]["replies"][0]
-    st.write(reply)
-    # print(profile_extractor_pipe.run({'prompt':{"value": placeholder_story}}))
+    if "profile" not in st.session_state:
+        with st.spinner("Wait for it..."):
+            res = profile_extractor_pipe.run({"prompt": {"value": placeholder_story}})
+            st.session_state["profile"] = res["generator"]["replies"][0]
+    st.write(st.session_state["profile"])
+    chat = [
+        {"role": "Nasabah", "message": "Saya mau ambil KPR. Sebaiknya bagaimana ya?"}
+    ]
+    with st.spinner("Planning"):
+        planner = financial_planner()
+        res = planner.run(
+            {
+                "chat": {"value": chat},
+                "profile": {"value": st.session_state["profile"]},
+            },
+        )
+        response = res["financial_planner"]["replies"][0]
+        st.write(response)
 
 
 if __name__ == "__main__":

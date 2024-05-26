@@ -6,7 +6,7 @@ from haystack.components.builders import PromptBuilder
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 
 
-def create_prompt_generator(pipeline, template_path, agent_name):
+def create_prompt_generator(pipeline: Pipeline, template_path: str, agent_name: str):
     with open(template_path, "r") as f:
         risk_template = f.read()
         pipeline.add_component(
@@ -25,7 +25,7 @@ def create_prompt_generator(pipeline, template_path, agent_name):
     return pipeline
 
 
-def financial_planner(pipeline_kwargs={}):
+def financial_planner(pipeline_kwargs: dict = {}):
     # code is designed this way due to approaching deadline
     # TODO: refactor codes to make it more reusable
     planner = Pipeline(**pipeline_kwargs)

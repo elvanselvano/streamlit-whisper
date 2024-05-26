@@ -16,11 +16,32 @@ st.set_page_config(
 
 @st.cache_resource
 def load_whisper_model():
+    """
+    Load and cache the medium size OpenAI Whisper model.
+
+    Returns:
+        object: The loaded Whisper model.
+    """
     model = whisper.load_model("medium")
     return model
 
 
 def transcribe_audio(model, audio):
+    """
+    Transcribe audio using the OpenAI Whisper model.
+
+    This function takes an audio object, ensures that the audio parameters
+    (frame rate, sample width, and channels) meet OpenAI Whisper specifications,
+    converts the audio data into a normalized numpy array, and then transcribes
+    it using the Whisper model.
+
+    Args:
+        model: The Whisper model used for audio transcription.
+        audio: The audio object to be transcribed.
+
+    Returns:
+        str: The transcribed audio result in text format.
+    """
     if audio.frame_rate != 16000:
         audio = audio.set_frame_rate(16000)
     if audio.sample_width != 2:
@@ -61,8 +82,7 @@ def main():
             reply = res["generator"]["replies"][0]
         st.write(reply)
 
-        lang = os.environ["GTTS_MODEL_LANGUAGE"]
-        tts = gTTS(text=reply, lang=lang)
+        tts = gTTS(text=reply, lang=os.environ["GTTS_MODEL_LANGUAGE"])
         audio_bytes = BytesIO()
 
         tts.write_to_fp(audio_bytes)

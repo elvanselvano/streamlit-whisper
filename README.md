@@ -18,6 +18,6 @@
 
 1. enter the command
 
-    ``
+    ``sh
     streamlit run app.py
     ``

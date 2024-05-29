@@ -6,6 +6,7 @@ import whisper
 import streamlit as st
 from gtts import gTTS
 from dotenv import load_dotenv
+from audiorecorder import audiorecorder
 from agents.blueprints import financial_planner
 
 st.set_page_config(

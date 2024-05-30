@@ -15,10 +15,7 @@ def create_prompt_generator(pipeline: Pipeline, template_path: str, agent_name: 
 
     pipeline.add_component(
         agent_name,
-        OpenAIGenerator(
-            model=os.getenv("LLM_MODEL", "gpt-3.5-turbo"),
-            # timeout=int(os.getenv("LLM_TIMEOUT_SECONDS", 10 * 60)),
-        ),
+        OpenAIGenerator(model=os.getenv("LLM_MODEL", "gpt-3.5-turbo")),
     )
     pipeline.connect(f"{agent_name}_template_builder", agent_name)
     return pipeline
@@ -28,14 +25,12 @@ def financial_planner(pipeline_kwargs: dict = {}):
     # code is designed this way due to approaching deadline
     # TODO: refactor codes to make it more reusable
     planner = Pipeline(**pipeline_kwargs)
-    # planner.add_component("profile", Multiplexer(str))
     planner.add_component("chat", Multiplexer(list[dict[str]]))
 
     agents = ["risk_analyst", "investment_consultant", "financial_planner"]
     for agent in agents:
         create_prompt_generator(planner, f"agents/templates/{agent}.txt", agent)
         planner.connect("chat.value", f"{agent}_template_builder.chat_log")
-        # planner.connect("profile.value", f"{agent}_template_builder.profile")
 
     planner.connect("risk_analyst.replies", "financial_planner_template_builder.risks")
     planner.connect(

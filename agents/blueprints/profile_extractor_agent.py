@@ -15,10 +15,7 @@ def profile_extractor(pipeline_kwargs: dict = {}):
     extractor.add_component("builder", PromptBuilder(template))
     extractor.add_component(
         "generator",
-        OpenAIGenerator(
-            model=os.getenv("LLM_MODEL", "gpt-3.5-turbo"),
-            # timeout=int(os.getenv("LLM_TIMEOUT_SECONDS", 10 * 60)),
-        ),
+        OpenAIGenerator(model=os.getenv("LLM_MODEL", "gpt-3.5-turbo")),
     )
     extractor.connect("prompt.value", "builder.story")
     extractor.connect("builder", "generator")

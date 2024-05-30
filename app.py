@@ -7,7 +7,7 @@ import streamlit as st
 from gtts import gTTS
 from dotenv import load_dotenv
 from audiorecorder import audiorecorder
-from agents.blueprints import financial_planner, profile_extractor
+from agents.blueprints import financial_planner
 
 st.set_page_config(
     page_title="FinNetra",
@@ -76,38 +76,28 @@ def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("FinNetra")
 
-    if "profile" not in st.session_state:
+    if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
+        st.session_state["chat"] = []
+
     audio = audiorecorder("Click to record", "Click to stop recording")
 
     if len(audio) > 0:
         model = load_whisper_model()
-        transcribed_audio_text = transcribe_audio(model, audio)
-        if "profile" not in st.session_state:
-            profile_extractor_pipe = profile_extractor()
-
-            with st.spinner("Extracting Profile"):
-                res = profile_extractor_pipe.run(
-                    {"prompt": {"value": transcribed_audio_text}}
-                )
-                st.session_state["profile"] = res["generator"]["replies"][0]
-                st.session_state["chat"] = []
-                speak("Apa yang bisa saya bantu?")
-        else:
-            st.session_state["chat"].append(
-                {"role": "Nasabah", "message": transcribed_audio_text}
+        text = transcribe_audio(model, audio)
+        st.session_state["chat"].append({"role": "Nasabah", "message": text})
+        with st.spinner("Planning"):
+            planner = financial_planner()
+            res = planner.run(
+                {
+                    "chat": {"value": st.session_state["chat"]},
+                },
             )
-            with st.spinner("Planning"):
-                planner = financial_planner()
-                res = planner.run(
-                    {
-                        "chat": {"value": st.session_state["chat"]},
-                        "profile": {"value": st.session_state["profile"]},
-                    },
-                )
-                response = res["financial_planner"]["replies"][0]
-            speak(response)
-            st.session_state["chat"].append({"role": "Anda", "message": response})
+            response = res["financial_planner"]["replies"][0]
+        speak(response)
+        st.session_state["chat"].append({"role": "Anda", "message": response})
+        for i in st.session_state["chat"]:
+            st.write(f"{i['role']}: {i['message']}")
 
 
 if __name__ == "__main__":

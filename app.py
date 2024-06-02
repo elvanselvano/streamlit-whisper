@@ -4,10 +4,10 @@ from io import BytesIO
 import numpy as np
 import whisper
 import streamlit as st
-from gtts import gTTS
 from dotenv import load_dotenv
 from audiorecorder import audiorecorder
 from agents.blueprints import financial_planner
+from elevenlabs.client import ElevenLabs
 
 st.set_page_config(
     page_title="FinNetra",
@@ -65,11 +65,19 @@ def speak(text: str):
     Args:
         text: str = the text to be converted into speech
     """
-    tts = gTTS(text=text, lang=os.environ["GTTS_MODEL_LANGUAGE"])
-    audio_bytes = BytesIO()
-
-    tts.write_to_fp(audio_bytes)
-    st.audio(audio_bytes, format="audio/mp3", autoplay=True)
+    client = ElevenLabs(
+        api_key=os.environ["TTS_API_KEY"]
+    )
+    audio = client.generate(
+        text=text,
+        voice=os.getenv("TTS_VOICE", "Rachel"),
+        model=os.getenv("TTS_MODEL", "eleven_multilingual_v2")
+    )
+    audio_file = BytesIO()
+    for chunk in audio:
+        if chunk:
+            audio_file.write(chunk)
+    st.audio(audio_file, autoplay=True)
 
 
 def main():

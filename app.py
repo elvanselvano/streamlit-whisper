@@ -80,6 +80,47 @@ def speak(text: str):
             audio_file.write(chunk)
     st.audio(audio_file, autoplay=True)
 
+def display_faq():
+    st.markdown("""
+        <style>
+        .faq-question {
+            font-size: 24px;
+            color: #027bbd;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .faq-answer {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+    st.title("Frequently Asked Questions (FAQ)")
+    faq_items = [
+        {
+            "question": "Produk ini dibuat oleh siapa?",
+            "answer": "Streamlit is an open-source app framework for Machine Learning and Data Science teams. You can create beautiful web applications with Python code easily and quickly."
+        },
+        {
+            "question": "Model machine learning apa saja yang digunakan?",
+            "answer": "You can install Streamlit using pip. Simply run pip install streamlit in your terminal."
+        },
+        {
+            "question": "Mengapa projek ini dibuat dan apa impact nya?",
+            "answer": "Yes, Streamlit is designed to integrate well with other Python libraries such as Pandas, NumPy, Matplotlib, and many more."
+        },
+        {
+            "question": "How do I deploy a Streamlit app?",
+            "answer": "You can deploy your Streamlit app using Streamlit Sharing, Heroku, AWS, GCP, or any other platform that supports Python web applications."
+        },
+    ]
+
+    for item in faq_items:
+        st.markdown(f'<div class="faq-question">{item["question"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="faq-answer">{item["answer"]}</div>', unsafe_allow_html=True)
 
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
@@ -108,6 +149,7 @@ def main():
         st.session_state["chat"].append({"role": "Anda", "message": response})
         for i in st.session_state["chat"]:
             st.write(f"{i['role']}: {i['message']}")
+    display_faq()
 
 
 if __name__ == "__main__":

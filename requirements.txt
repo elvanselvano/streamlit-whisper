@@ -6,4 +6,4 @@ ollama-haystack==0.0.6
 python-dotenv==1.0.1
 ffmpeg==1.4
 streamlit-audiorecorder==0.0.5
-gTTS==2.5.1
+elevenlabs==1.2.2

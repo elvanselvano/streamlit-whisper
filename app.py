@@ -80,6 +80,7 @@ def speak(text: str):
             audio_file.write(chunk)
     st.audio(audio_file, autoplay=True)
 
+
 def display_faq():
     st.markdown("""
         <style>
@@ -101,31 +102,47 @@ def display_faq():
     st.title("Frequently Asked Questions (FAQ)")
     faq_items = [
         {
-            "question": "Produk ini dibuat oleh siapa?",
-            "answer": "Streamlit is an open-source app framework for Machine Learning and Data Science teams. You can create beautiful web applications with Python code easily and quickly."
+            "question": "Apa itu Finnetra?",
+            "answer": "Finnetra adalah aplikasi berbasis kecerdasan buatan (AI) dan machine learning (ML) yang dikembangkan untuk memperluas inklusi keuangan bagi orang dengan disabilitas visual. Finnetra dikembangkan oleh Tim HaloBI, yang terdiri dari Elvan Selvano, Roland, Novita Furia Putri, dan Dody Harianto. Proyek bertujuan untuk memberikan akses keuangan yang lebih mudah bagi tunanetra."
         },
         {
-            "question": "Model machine learning apa saja yang digunakan?",
-            "answer": "You can install Streamlit using pip. Simply run pip install streamlit in your terminal."
+            "question": "Mengapa kami membuat Finnetra?",
+            "answer": "Kami menciptakan Finnetra sebagai respons terhadap kebutuhan yang belum terpenuhi bagi orang dengan disabilitas visual untuk mengakses layanan keuangan secara mandiri. Kami ingin membantu mengatasi hambatan-hambatan ini melalui teknologi AI sehingga dapat memberikan jawaban kepada tunanetra dengan latar belakang berbeda-beda."
         },
         {
-            "question": "Mengapa projek ini dibuat dan apa impact nya?",
-            "answer": "Yes, Streamlit is designed to integrate well with other Python libraries such as Pandas, NumPy, Matplotlib, and many more."
+            "question": "Mengapa tunanetra perlu menggunakan aplikasi kami?",
+            "answer": "Finnetra didesain cukup ramah untuk tunanetra karena hanya memerlukan suara pengguna dan dapat memberikan dampak yang signifikan bagi mereka. Dengan aplikasi ini, mereka dapat melakukan transaksi keuangan, mengelola tabungan, dan mendapatkan rekomendasi layanan keuangan yang sesuai dengan kebutuhan mereka, yang semuanya dapat meningkatkan kemandirian dan kualitas hidup pengguna."
         },
         {
-            "question": "How do I deploy a Streamlit app?",
-            "answer": "You can deploy your Streamlit app using Streamlit Sharing, Heroku, AWS, GCP, or any other platform that supports Python web applications."
+            "question": "Bagaimana cara menggunakan Finnetra?",
+            "answer": "Finnetra dapat diakses melalui web baik menggunakan telepon genggam atau laptop. Dengan demikian, aksesnya sangat mudah bagi siapa pun yang membutuhkan layanan kami."
+        },
+        {
+            "question": "Apakah ada biaya yang perlu saya keluarkan untuk menggunakan Finnetra sebagai pengguna?",
+            "answer": "Tidak, Finnetra dapat digunakan secara gratis oleh pengguna. Kami ingin memastikan bahwa layanan kami dapat diakses oleh semua orang tanpa hambatan finansial."
+        },
+        {
+            "question": "Model AI / machine learning apa yang digunakan oleh Finnetra?",
+            "answer": "Finnetra menggunakan model OpenAI Whisper untuk merekam suara pengguna dan mengubah suara menjadi teks, model GPT untuk memproses data keuangan pengguna dan memberikan rekomendasi layanan keuangan yang relevan untuk pengguna, dan Google Text to Speech (gTTS) yang digunakan untuk mengubah hasil rekomendasi menjadi audio sehingga dapat diterima oleh tunanetra."
+        },
+        {
+            "question": "Jika saya memiliki masukan atau tidak dapat menggunakan Finnetra, kepada siapa saya harus menghubungi?",
+            "answer": "Jika Anda memiliki masukan atau mengalami kesulitan dalam menggunakan Finnetra, Anda dapat mengacu pada tautan https://github.com/elvanselvano/streamlit-whisper atau menghubungi tim kami melalui informasi kontak yang tersedia di dalam tautan tersebut. Kami siap membantu Anda dengan segala pertanyaan atau masalah yang Anda hadapi."
         },
     ]
 
     for item in faq_items:
-        st.markdown(f'<div class="faq-question">{item["question"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="faq-answer">{item["answer"]}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="faq-question">{item["question"]}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="faq-answer">{item["answer"]}</div>', unsafe_allow_html=True)
+
 
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("FinNetra")
-    st.write("Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
+    st.write(
+        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
 
     if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")

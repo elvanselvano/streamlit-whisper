@@ -82,15 +82,13 @@ def speak(text: str):
 
 
 def main():
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.title("FinNetra")
-    st.write("Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
-
     if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
         st.session_state["chat"] = []
 
-    audio = audiorecorder("Mulai merekam", "Berhenti merekam")
+    audio = audiorecorder(
+        "Mulai merekam", "Berhenti merekam", key="main_audio"
+    )
 
     if len(audio) > 0:
         model = load_whisper_model()
@@ -110,6 +108,30 @@ def main():
             st.write(f"{i['role']}: {i['message']}")
 
 
+def register():
+    speak("Masukkan nomor telephone kamu dong!")
+    audio = audiorecorder(
+        "Mulai merekam", "Berhenti merekam", key="register_audio"
+    )
+    if len(audio) > 0:
+        model = load_whisper_model()
+        text = transcribe_audio(model, audio)
+        st.session_state['profile'] = text
+        st.rerun()
+
+
+def main_loop():
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.title("FinNetra")
+    st.write(
+        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML."
+    )
+    if "profile" not in st.session_state:
+        register()
+    else:
+        main()
+
+
 if __name__ == "__main__":
     load_dotenv(".env")
-    main()
+    main_loop()

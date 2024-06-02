@@ -10,6 +10,7 @@ from agents.blueprints import financial_planner
 from elevenlabs.client import ElevenLabs
 
 st.set_page_config(
+    layout="centered",
     page_title="FinNetra",
 )
 
@@ -54,7 +55,7 @@ def transcribe_audio(model, audio):
     )
 
     transcribe_options = dict(task="transcribe", **options)
-    with st.spinner("Transcribing Audio"):
+    with st.spinner("Saya sedang berpikir.."):
         result = model.transcribe(audio_array, **transcribe_options)
     return result["text"]
 
@@ -83,18 +84,19 @@ def speak(text: str):
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("FinNetra")
+    st.write("Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
 
     if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
         st.session_state["chat"] = []
 
-    audio = audiorecorder("Click to record", "Click to stop recording")
+    audio = audiorecorder("Mulai merekam", "Berhenti merekam")
 
     if len(audio) > 0:
         model = load_whisper_model()
         text = transcribe_audio(model, audio)
         st.session_state["chat"].append({"role": "Nasabah", "message": text})
-        with st.spinner("Planning"):
+        with st.spinner("Membuat perencanaan keuanganmu.."):
             planner = financial_planner()
             res = planner.run(
                 {

@@ -1,0 +1,30 @@
+[
+    {
+        "question": "Apa itu Finnetra?",
+        "answer": "Finnetra adalah aplikasi berbasis kecerdasan buatan (AI) dan machine learning (ML) yang dirancang untuk memperluas inklusi keuangan bagi individu dengan disabilitas visual. Dikembangkan oleh Tim HaloBI, yang terdiri dari Elvan Selvano, Roland, Novita Furia Putri, dan Dody Harianto, proyek ini bertujuan untuk memberikan akses keuangan yang lebih mudah dan efisien bagi tunanetra."
+    },
+    {
+        "question": "Mengapa kami membuat Finnetra?",
+        "answer": "Kami menciptakan Finnetra sebagai respon terhadap kebutuhan yang belum terpenuhi bagi orang dengan disabilitas visual untuk mengakses layanan keuangan secara mandiri. Kami ingin membantu mengatasi hambatan-hambatan ini melalui teknologi AI sehingga dapat memberikan jawaban kepada tunanetra dengan latar belakang berbeda-beda."
+    },
+    {
+        "question": "Mengapa tunanetra perlu menggunakan aplikasi kami?",
+        "answer": "Finnetra dirancang ramah bagi tunanetra karena hanya memerlukan suara pengguna. Melalui aplikasi ini, pengguna dapat menerima rekomendasi layanan keuangan yang dipersonalisasi sesuai kebutuhan spesifik masing-masing, menghadirkan solusi keuangan yang inovatif."
+    },
+    {
+        "question": "Bagaimana cara menggunakan Finnetra?",
+        "answer": "Finnetra dapat diakses melalui web, baik menggunakan telepon genggam maupun laptop. Dengan demikian, aksesnya menjadi sangat mudah dan praktis bagi siapa pun yang memerlukan layanan kami."
+    },
+    {
+        "question": "Apakah ada biaya yang perlu saya keluarkan untuk menggunakan Finnetra sebagai pengguna?",
+        "answer": "Tidak, Finnetra dapat digunakan secara gratis oleh pengguna. Kami berkomitmen untuk memastikan bahwa layanan kami dapat diakses oleh semua orang tanpa hambatan finansial."
+    },
+    {
+        "question": "Model AI / machine learning apa yang digunakan oleh Finnetra?",
+        "answer": "Finnetra menggunakan model OpenAI Whisper untuk merekam dan mengubah suara pengguna menjadi teks, serta Large Language Model (LLM) untuk memproses data keuangan pengguna dan memberikan rekomendasi layanan keuangan yang relevan. Selain itu, Google Text to Speech (gTTS) digunakan untuk mengubah hasil rekomendasi menjadi audio, sehingga dapat diterima dengan mudah oleh tunanetra."
+    },
+    {
+        "question": "Jika saya memiliki masukan atau tidak dapat menggunakan Finnetra, kepada siapa saya harus menghubungi?",
+        "answer": "Jika Anda memiliki masukan atau mengalami kesulitan dalam menggunakan Finnetra, Anda dapat mengunjungi tautan https://github.com/elvanselvano/streamlit-whisper atau menghubungi tim kami melalui informasi kontak yang tersedia di sana. Kami siap membantu Anda dengan segala pertanyaan atau masalah yang mungkin Anda hadapi."
+    }
+]

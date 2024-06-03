@@ -111,20 +111,16 @@ def display_faq():
 
 
 def main():
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.title("FinNetra")
-    st.write(
-        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
-
     if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
         st.session_state["chat"] = []
 
-    audio = audiorecorder("Mulai merekam", "Berhenti merekam")
+    audio = audiorecorder(
+        "Mulai merekam", "Berhenti merekam", key="main_audio"
+    )
 
     if len(audio) > 0:
-        model = load_whisper_model()
-        text = transcribe_audio(model, audio)
+        text = transcribe_audio(st.session_state['whisper'], audio)
         st.session_state["chat"].append({"role": "Nasabah", "message": text})
         with st.spinner("Membuat perencanaan keuanganmu.."):
             planner = financial_planner()
@@ -138,9 +134,34 @@ def main():
         st.session_state["chat"].append({"role": "Anda", "message": response})
         for i in st.session_state["chat"]:
             st.write(f"{i['role']}: {i['message']}")
+
+
+def register():
+    speak("Untuk proses registrasi, tolong sebutkan nomor telephone kamu!")
+    audio = audiorecorder(
+        "Mulai merekam", "Berhenti merekam", key="register_audio"
+    )
+    if len(audio) > 0:
+        text = transcribe_audio(st.session_state['whisper'], audio)
+        st.session_state['profile'] = text
+        st.rerun()
+
+
+def main_loop():
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.title("FinNetra")
+    st.write(
+        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML."
+    )
+    if "profile" not in st.session_state:
+        register()
+    else:
+        main()
     display_faq()
 
 
 if __name__ == "__main__":
     load_dotenv(".env")
-    main()
+    if "whisper" not in st.session_state:
+        st.session_state['whisper'] = load_whisper_model()
+    main_loop()

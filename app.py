@@ -85,21 +85,20 @@ def display_faq():
     st.markdown("""
         <style>
         .faq-question {
-            font-size: 24px;
+            font-size: 20px;
+            font-weight: 600;
             color: #027bbd;
             margin-top: 20px;
-            text-align: center;
         }
         .faq-answer {
             font-size: 16px;
             color: white;
             margin-bottom: 20px;
-            text-align: center;
         }
         </style>
         """, unsafe_allow_html=True)
 
-    st.title("Frequently Asked Questions (FAQ)")
+    st.subheader("Frequently Asked Questions (FAQ)")
     with open("./faq.json", 'r') as f:
         faq_items = json.load(f)
 
@@ -137,7 +136,7 @@ def main():
 
 
 def register():
-    speak("Untuk proses registrasi, tolong sebutkan nomor telephone kamu!")
+    speak("Untuk proses registrasi, tolong sebutkan nomor telepon kamu!")
     audio = audiorecorder(
         "Mulai merekam", "Berhenti merekam", key="register_audio"
     )
@@ -151,7 +150,7 @@ def main_loop():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("FinNetra")
     st.write(
-        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML."
+        "Memberikan hak atas akses finansial yang setara bagi tunanetra dengan memanfaatkan kekuatan AI dan ML."
     )
     if "profile" not in st.session_state:
         register()

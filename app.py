@@ -107,7 +107,7 @@ def display_faq():
         },
         {
             "question": "Mengapa kami membuat Finnetra?",
-            "answer": "Kami menciptakan Finnetra sebagai respons terhadap kebutuhan yang belum terpenuhi bagi orang dengan disabilitas visual untuk mengakses layanan keuangan secara mandiri. Kami ingin membantu mengatasi hambatan-hambatan ini melalui teknologi AI sehingga dapat memberikan jawaban kepada tunanetra dengan latar belakang berbeda-beda."
+            "answer": "Kami menciptakan Finnetra sebagai respon terhadap kebutuhan yang belum terpenuhi bagi orang dengan disabilitas visual untuk mengakses layanan keuangan secara mandiri. Kami ingin membantu mengatasi hambatan-hambatan ini melalui teknologi AI sehingga dapat memberikan jawaban kepada tunanetra dengan latar belakang berbeda-beda."
         },
         {
             "question": "Mengapa tunanetra perlu menggunakan aplikasi kami?",

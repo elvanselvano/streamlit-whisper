@@ -111,7 +111,7 @@ def display_faq():
         },
         {
             "question": "Mengapa tunanetra perlu menggunakan aplikasi kami?",
-            "answer": "Finnetra didesain cukup ramah untuk tunanetra karena hanya memerlukan suara pengguna dan dapat memberikan dampak yang signifikan bagi mereka. Dengan aplikasi ini, mereka dapat melakukan transaksi keuangan, mengelola tabungan, dan mendapatkan rekomendasi layanan keuangan yang sesuai dengan kebutuhan mereka, yang semuanya dapat meningkatkan kemandirian dan kualitas hidup pengguna."
+            "answer": "Finnetra dirancang ramah bagi tunanetra karena hanya memerlukan suara pengguna. Melalui aplikasi ini, pengguna dapat menerima rekomendasi layanan keuangan yang dipersonalisasi sesuai kebutuhan spesifik masing-masing, menghadirkan solusi keuangan yang inovatif."
         },
         {
             "question": "Bagaimana cara menggunakan Finnetra?",

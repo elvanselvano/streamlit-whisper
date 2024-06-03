@@ -103,7 +103,7 @@ def display_faq():
     faq_items = [
         {
             "question": "Apa itu Finnetra?",
-            "answer": "Finnetra adalah aplikasi berbasis kecerdasan buatan (AI) dan machine learning (ML) yang dikembangkan untuk memperluas inklusi keuangan bagi orang dengan disabilitas visual. Finnetra dikembangkan oleh Tim HaloBI, yang terdiri dari Elvan Selvano, Roland, Novita Furia Putri, dan Dody Harianto. Proyek bertujuan untuk memberikan akses keuangan yang lebih mudah bagi tunanetra."
+            "answer": "Finnetra adalah aplikasi berbasis kecerdasan buatan (AI) dan machine learning (ML) yang dirancang untuk memperluas inklusi keuangan bagi individu dengan disabilitas visual. Dikembangkan oleh Tim HaloBI, yang terdiri dari Elvan Selvano, Roland, Novita Furia Putri, dan Dody Harianto, proyek ini bertujuan untuk memberikan akses keuangan yang lebih mudah dan efisien bagi tunanetra."
         },
         {
             "question": "Mengapa kami membuat Finnetra?",

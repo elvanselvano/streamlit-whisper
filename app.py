@@ -120,7 +120,7 @@ def main():
 
     if len(audio) > 0:
         text = transcribe_audio(st.session_state['whisper'], audio)
-        st.session_state["chat"].append({"role": "Nasabah", "message": text})
+        st.session_state["chat"].append({"role": "human", "message": text})
         with st.spinner("Membuat perencanaan keuanganmu.."):
             planner = financial_planner()
             res = planner.run(
@@ -130,9 +130,10 @@ def main():
             )
             response = res["financial_planner"]["replies"][0]
         speak(response)
-        st.session_state["chat"].append({"role": "Anda", "message": response})
+        st.session_state["chat"].append({"role": "ai", "message": response})
         for i in st.session_state["chat"]:
-            st.write(f"{i['role']}: {i['message']}")
+            with st.chat_message(i['role']):
+                st.write(f"{i['role']}: {i['message']}")
 
 
 def register():
@@ -148,7 +149,7 @@ def register():
 
 def main_loop():
     st.markdown("<br>", unsafe_allow_html=True)
-    st.title("FinNetra")
+    st.image("logo.png", width=320)
     st.write(
         "Memberikan hak atas akses finansial yang setara bagi tunanetra dengan memanfaatkan kekuatan AI dan ML."
     )

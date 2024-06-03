@@ -115,7 +115,7 @@ def display_faq():
         },
         {
             "question": "Bagaimana cara menggunakan Finnetra?",
-            "answer": "Finnetra dapat diakses melalui web baik menggunakan telepon genggam atau laptop. Dengan demikian, aksesnya sangat mudah bagi siapa pun yang membutuhkan layanan kami."
+            "answer": "Finnetra dapat diakses melalui web, baik menggunakan telepon genggam maupun laptop. Dengan demikian, aksesnya menjadi sangat mudah dan praktis bagi siapa pun yang memerlukan layanan kami."
         },
         {
             "question": "Apakah ada biaya yang perlu saya keluarkan untuk menggunakan Finnetra sebagai pengguna?",

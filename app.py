@@ -109,7 +109,7 @@ def main():
 
 
 def register():
-    speak("Masukkan nomor telephone kamu dong!")
+    speak("Untuk proses registrasi, tolong sebutkan nomor telephone kamu!")
     audio = audiorecorder(
         "Mulai merekam", "Berhenti merekam", key="register_audio"
     )

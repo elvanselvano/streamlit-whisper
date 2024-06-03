@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-
+import json
 import numpy as np
 import whisper
 import streamlit as st
@@ -81,10 +81,40 @@ def speak(text: str):
     st.audio(audio_file, autoplay=True)
 
 
+def display_faq():
+    st.markdown("""
+        <style>
+        .faq-question {
+            font-size: 24px;
+            color: #027bbd;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .faq-answer {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+    st.title("Frequently Asked Questions (FAQ)")
+    with open("./faq.json", 'r') as f:
+        faq_items = json.load(f)
+
+    for item in faq_items:
+        st.markdown(
+            f'<div class="faq-question">{item["question"]}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="faq-answer">{item["answer"]}</div>', unsafe_allow_html=True)
+
+
 def main():
     st.markdown("<br>", unsafe_allow_html=True)
     st.title("FinNetra")
-    st.write("Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
+    st.write(
+        "Menyediakan tunanetra hak atas akses finansial yang setara melalui kekuatan AI dan ML.")
 
     if "chat" not in st.session_state:
         speak("Halo! Kenalin nama, profil, dan kondisi keuangan kamu dong!")
@@ -108,6 +138,7 @@ def main():
         st.session_state["chat"].append({"role": "Anda", "message": response})
         for i in st.session_state["chat"]:
             st.write(f"{i['role']}: {i['message']}")
+    display_faq()
 
 
 if __name__ == "__main__":

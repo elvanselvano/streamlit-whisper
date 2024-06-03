@@ -123,7 +123,7 @@ def display_faq():
         },
         {
             "question": "Model AI / machine learning apa yang digunakan oleh Finnetra?",
-            "answer": "Finnetra menggunakan model OpenAI Whisper untuk merekam suara pengguna dan mengubah suara menjadi teks, model GPT untuk memproses data keuangan pengguna dan memberikan rekomendasi layanan keuangan yang relevan untuk pengguna, dan Google Text to Speech (gTTS) yang digunakan untuk mengubah hasil rekomendasi menjadi audio sehingga dapat diterima oleh tunanetra."
+            "answer": "Finnetra menggunakan model OpenAI Whisper untuk merekam dan mengubah suara pengguna menjadi teks, serta Large Language Model (LLM) untuk memproses data keuangan pengguna dan memberikan rekomendasi layanan keuangan yang relevan. Selain itu, Google Text to Speech (gTTS) digunakan untuk mengubah hasil rekomendasi menjadi audio, sehingga dapat diterima dengan mudah oleh tunanetra."
         },
         {
             "question": "Jika saya memiliki masukan atau tidak dapat menggunakan Finnetra, kepada siapa saya harus menghubungi?",

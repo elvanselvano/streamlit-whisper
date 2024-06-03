@@ -119,7 +119,7 @@ def display_faq():
         },
         {
             "question": "Apakah ada biaya yang perlu saya keluarkan untuk menggunakan Finnetra sebagai pengguna?",
-            "answer": "Tidak, Finnetra dapat digunakan secara gratis oleh pengguna. Kami ingin memastikan bahwa layanan kami dapat diakses oleh semua orang tanpa hambatan finansial."
+            "answer": "Tidak, Finnetra dapat digunakan secara gratis oleh pengguna. Kami berkomitmen untuk memastikan bahwa layanan kami dapat diakses oleh semua orang tanpa hambatan finansial."
         },
         {
             "question": "Model AI / machine learning apa yang digunakan oleh Finnetra?",

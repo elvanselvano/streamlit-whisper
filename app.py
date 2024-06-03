@@ -127,7 +127,7 @@ def display_faq():
         },
         {
             "question": "Jika saya memiliki masukan atau tidak dapat menggunakan Finnetra, kepada siapa saya harus menghubungi?",
-            "answer": "Jika Anda memiliki masukan atau mengalami kesulitan dalam menggunakan Finnetra, Anda dapat mengacu pada tautan https://github.com/elvanselvano/streamlit-whisper atau menghubungi tim kami melalui informasi kontak yang tersedia di dalam tautan tersebut. Kami siap membantu Anda dengan segala pertanyaan atau masalah yang Anda hadapi."
+            "answer": "Jika Anda memiliki masukan atau mengalami kesulitan dalam menggunakan Finnetra, Anda dapat mengunjungi tautan https://github.com/elvanselvano/streamlit-whisper atau menghubungi tim kami melalui informasi kontak yang tersedia di sana. Kami siap membantu Anda dengan segala pertanyaan atau masalah yang mungkin Anda hadapi."
         },
     ]
 

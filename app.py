@@ -91,8 +91,7 @@ def main():
     )
 
     if len(audio) > 0:
-        model = load_whisper_model()
-        text = transcribe_audio(model, audio)
+        text = transcribe_audio(st.session_state['whisper'], audio)
         st.session_state["chat"].append({"role": "Nasabah", "message": text})
         with st.spinner("Membuat perencanaan keuanganmu.."):
             planner = financial_planner()
@@ -114,8 +113,7 @@ def register():
         "Mulai merekam", "Berhenti merekam", key="register_audio"
     )
     if len(audio) > 0:
-        model = load_whisper_model()
-        text = transcribe_audio(model, audio)
+        text = transcribe_audio(st.session_state['whisper'], audio)
         st.session_state['profile'] = text
         st.rerun()
 
@@ -134,4 +132,6 @@ def main_loop():
 
 if __name__ == "__main__":
     load_dotenv(".env")
+    if "whisper" not in st.session_state:
+        st.session_state['whisper'] = load_whisper_model()
     main_loop()
